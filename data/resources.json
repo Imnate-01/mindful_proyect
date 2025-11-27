@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "title": "Rutina Matutina Consciente",
+    "desc": "Empieza tu día con calma",
+    "type": "Meditación",
+    "duration": 8,
+    "level": "Básico"
+  },
+  {
+    "id": 2,
+    "title": "Gestión de Estrés: Exámenes",
+    "desc": "Respiración 4‑7‑8",
+    "type": "Ejercicio",
+    "duration": 10,
+    "level": "Intermedio"
+  },
+  {
+    "id": 3,
+    "title": "Podcast: Mindfulness en Campus",
+    "desc": "Episodio 12",
+    "type": "Podcast",
+    "duration": 25,
+    "level": "Todos"
+  },
+  {
+    "id": 4,
+    "title": "Programa Anti‑Procrastinación",
+    "desc": "Ruta de 7 días",
+    "type": "Programa",
+    "duration": 15,
+    "level": "Intermedio"
+  },
+  {
+    "id": 5,
+    "title": "Visualización Relajante",
+    "desc": "Guía rápida",
+    "type": "Meditación",
+    "duration": 6,
+    "level": "Básico"
+  },
+  {
+    "id": 6,
+    "title": "Meditación para Dormir",
+    "desc": "Sueño profundo",
+    "type": "Meditación",
+    "duration": 12,
+    "level": "Básico"
+  },
+  {
+    "id": 7,
+    "title": "Diario de Gratitud",
+    "desc": "Escribe 3 cosas",
+    "type": "Herramienta",
+    "duration": 5,
+    "level": "Todos"
+  },
+  {
+    "id": 8,
+    "title": "Body Scan",
+    "desc": "Escaneo corporal",
+    "type": "Meditación",
+    "duration": 14,
+    "level": "Intermedio"
+  }
+]
