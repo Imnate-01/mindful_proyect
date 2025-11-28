@@ -1,8 +1,7 @@
 {
   "/login/page": "app/login/page.js",
-  "/sesiones/page": "app/sesiones/page.js",
-  "/home/page": "app/home/page.js",
-  "/page": "app/page.js",
   "/journal/page": "app/journal/page.js",
+  "/home/page": "app/home/page.js",
+  "/sesiones/page": "app/sesiones/page.js",
   "/emergencia/page": "app/emergencia/page.js"
 }
