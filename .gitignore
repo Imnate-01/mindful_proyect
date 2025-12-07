@@ -8,4 +8,4 @@
 !.yarn/versions
 .env*
 node_modules
-.next
+.next/
