@@ -1,14 +1,15 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
+import { createContext, useContext, useEffect, useState, ReactNode, useCallback } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 import { User } from '@supabase/supabase-js'
 
 interface Profile {
-    id: string
+    id?: string
+    id_usuario?: string
     nombre_completo: string | null
     avatar_url: string | null
-    email: string | null
+    email?: string | null
 }
 
 interface UserContextType {
@@ -16,6 +17,7 @@ interface UserContextType {
     profile: Profile | null
     loading: boolean
     avatarUrl: string | null
+    refreshProfile: () => Promise<void>
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined)
@@ -26,57 +28,62 @@ export function UserProvider({ children }: { children: ReactNode }) {
     const [loading, setLoading] = useState(true)
     const [avatarUrl, setAvatarUrl] = useState<string | null>(null)
 
-    useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                setLoading(true)
-                const { data: { session } } = await supabase.auth.getSession()
+    const fetchUserData = useCallback(async () => {
+        try {
+            // Don't set loading to true here to avoid UI flickering on background refresh
+            const { data: { session } } = await supabase.auth.getSession()
 
-                if (session?.user) {
-                    setUser(session.user)
+            if (session?.user) {
+                setUser(session.user)
 
-                    // Fetch profile
-                    const { data: profileData, error } = await supabase
-                        .from('perfiles')
-                        .select('*')
-                        .eq('id', session.user.id)
-                        .single()
+                // Fetch profile from 'perfiles_usuario'
+                const { data: profileData, error } = await supabase
+                    .from('perfiles_usuario')
+                    .select('*')
+                    .eq('id_usuario', session.user.id)
+                    .single()
 
-                    if (profileData) {
-                        setProfile(profileData)
-                        setAvatarUrl(profileData.avatar_url)
-                    } else {
-                        console.log("No profile found or error:", error)
-                    }
+                if (profileData) {
+                    setProfile(profileData)
+                    setAvatarUrl(profileData.avatar_url)
+                } else {
+                    console.log("No profile found in perfiles_usuario or error:", error)
+                    // Profile might not exist yet, treat as null or partial
                 }
-            } catch (error) {
-                console.error('Error fetching user data:', error)
-            } finally {
-                setLoading(false)
             }
+        } catch (error) {
+            console.error('Error fetching user data:', error)
+        } finally {
+            setLoading(false)
         }
+    }, [])
 
+    useEffect(() => {
         fetchUserData()
 
         const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
             if (session?.user) {
                 setUser(session.user)
-                // Optionally refetch profile here if needed, or just set user
+                fetchUserData()
             } else {
                 setUser(null)
                 setProfile(null)
                 setAvatarUrl(null)
+                setLoading(false)
             }
-            setLoading(false)
         })
 
         return () => {
             authListener.subscription.unsubscribe()
         }
-    }, [])
+    }, [fetchUserData])
+
+    const refreshProfile = async () => {
+        await fetchUserData()
+    }
 
     return (
-        <UserContext.Provider value={{ user, profile, loading, avatarUrl }}>
+        <UserContext.Provider value={{ user, profile, loading, avatarUrl, refreshProfile }}>
             {children}
         </UserContext.Provider>
     )
