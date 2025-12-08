@@ -368,7 +368,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto">
            {/* ... contenido del footer ... */}
            <div className="text-center text-gray-400 text-sm">
-              <p>© 2024 Mindful Campus. Hecho con ❤️ para estudiantes.</p>
+              <p>© 2025 iNerzia Mind.</p>
            </div>
         </div>
       </footer>

@@ -21,17 +21,46 @@ import {
 import { supabase } from '@/lib/supabaseClient'
 import { useUser } from '@/context/UserContext'
 
+// 👇 nuevos imports
+import { useAcademicProfile } from '@/hooks/useAcademicProfile'
+import AcademicProfileOnboarding from '@/components/AcademicProfileOnboarding'
+
 export default function HomePage() {
   const router = useRouter()
   const { user, profile, loading } = useUser()
   const [profileOpen, setProfileOpen] = useState(false)
 
+  // 👇 estado para mostrar / ocultar el onboarding académico
+  const [showAcademicOnboarding, setShowAcademicOnboarding] = useState(false)
+
+  // 👇 cargamos el perfil académico desde Supabase
+  const {
+    profile: academicProfile,
+    loading: loadingAcademic,
+  } = useAcademicProfile(user?.id)
+
+  // Redirección si no hay usuario
   useEffect(() => {
     if (!loading && !user) {
       router.replace('/login')
     }
   }, [user, loading, router])
 
+  // Mostrar onboarding si NO hay perfil académico y no se ha omitido
+  useEffect(() => {
+    if (!user || loading || loadingAcademic) return
+
+    const storageKey = `academic_profile_seen_${user.id}`
+    const skippedOrSeen =
+      typeof window !== 'undefined'
+        ? localStorage.getItem(storageKey) === 'true'
+        : false
+
+    if (!academicProfile && !skippedOrSeen) {
+      setShowAcademicOnboarding(true)
+    }
+  }, [user, loading, academicProfile, loadingAcademic])
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50">
@@ -40,23 +69,42 @@ export default function HomePage() {
     )
   }
 
-  const displayName = profile?.nombre_completo || user?.user_metadata?.full_name || 'Estudiante'
+  const displayName =
+    profile?.nombre_completo ||
+    user?.user_metadata?.full_name ||
+    'Estudiante'
 
   async function handleLogout() {
     await supabase.auth.signOut()
     router.replace('/login')
   }
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50">
-        <p className="text-sm text-gray-600">Cargando tu espacio seguro…</p>
-      </div>
-    )
+  // handlers para el onboarding
+  const handleOnboardingCompleted = () => {
+    if (!user) return
+    const storageKey = `academic_profile_seen_${user.id}`
+    localStorage.setItem(storageKey, 'true')
+    setShowAcademicOnboarding(false)
+  }
+
+  const handleOnboardingSkip = () => {
+    if (!user) return
+    const storageKey = `academic_profile_seen_${user.id}`
+    localStorage.setItem(storageKey, 'true')
+    setShowAcademicOnboarding(false)
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 overflow-x-hidden">
+      {/* Onboarding académico flotando sobre el home */}
+      {showAcademicOnboarding && user && (
+        <AcademicProfileOnboarding
+          userId={user.id}
+          onCompleted={handleOnboardingCompleted}
+          onSkip={handleOnboardingSkip}
+        />
+      )}
+
       {/* Animaciones globales */}
       <style jsx global>{`
         @keyframes blob {
@@ -76,10 +124,15 @@ export default function HomePage() {
       {/* Background blobs */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none opacity-40">
         <div className="absolute top-20 -left-20 md:left-10 w-72 md:w-96 h-72 md:h-96 bg-emerald-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
-        <div className="absolute top-40 -right-20 md:right-10 w-72 md:w-96 h-72 md:h-96 bg-teal-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute -bottom-8 left-1/2 w-72 md:w-96 h-72 md:h-96 bg-cyan-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob" style={{ animationDelay: '4s' }}></div>
+        <div
+          className="absolute top-40 -right-20 md:right-10 w-72 md:w-96 h-72 md:h-96 bg-teal-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob"
+          style={{ animationDelay: '2s' }}
+        ></div>
+        <div
+          className="absolute -bottom-8 left-1/2 w-72 md:w-96 h-72 md:h-96 bg-cyan-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob"
+          style={{ animationDelay: '4s' }}
+        ></div>
       </div>
-
 
       {/* CONTENIDO */}
       <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-10 md:pt-8">
