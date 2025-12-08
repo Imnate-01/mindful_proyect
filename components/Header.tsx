@@ -4,17 +4,18 @@ import { useState, useRef, useEffect, useMemo } from 'react'
 import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
 import { createClient } from '@supabase/supabase-js'
-import { 
-  Home, BookOpen, PlayCircle, Book, Zap, Bell, 
-  User, Activity, LogOut, ChevronDown, Heart 
+import {
+  Home, BookOpen, PlayCircle, Book, Zap, Bell,
+  User, Activity, LogOut, ChevronDown, Heart, ClipboardCheck
 } from 'lucide-react'
 
 // --- Configuración de Navegación ---
 const tabs = [
   { href: '/home', label: 'Inicio', icon: Home },
-  { href: '/journal', label: 'Diario', icon: Book },  
+  { href: '/journal', label: 'Diario', icon: Book },
   { href: '/recursos', label: 'Recursos', icon: BookOpen },
   { href: '/sesiones', label: 'Meditaciones', icon: PlayCircle },
+  { href: '/pruebas', label: 'Tests', icon: ClipboardCheck },
   { href: '/emergencia', label: 'Emergencia', icon: Zap, isEmergency: true },
 ]
 
@@ -23,7 +24,7 @@ export default function Header() {
   const router = useRouter()
   const [profileOpen, setProfileOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
-  
+
   // Estado para el usuario
   const [user, setUser] = useState<any>(null)
   const [loading, setLoading] = useState(true)
@@ -82,7 +83,7 @@ export default function Header() {
     <>
       <header className="sticky top-0 z-40 w-full px-4 py-3">
         <div className="max-w-7xl mx-auto bg-white/80 backdrop-blur-xl border border-white/40 shadow-lg rounded-2xl px-4 py-2.5 flex items-center justify-between transition-all duration-300 relative z-50">
-          
+
           {/* LOGO iNerzia Mind */}
           <div className="mr-4">
             <Link href="/home" className="flex items-center gap-3 group">
@@ -102,13 +103,13 @@ export default function Header() {
               const Icon = t.icon
 
               return (
-                <Link 
-                  key={t.href} 
-                  href={t.href} 
+                <Link
+                  key={t.href}
+                  href={t.href}
                   className={`
                     relative flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300
-                    ${isActive 
-                      ? 'bg-white text-emerald-600 shadow-sm ring-1 ring-black/5 scale-105' 
+                    ${isActive
+                      ? 'bg-white text-emerald-600 shadow-sm ring-1 ring-black/5 scale-105'
                       : 'text-gray-500 hover:text-gray-900 hover:bg-white/60'
                     }
                     ${t.isEmergency && !isActive ? 'text-rose-500 hover:text-rose-600 hover:bg-rose-50' : ''}
@@ -126,9 +127,9 @@ export default function Header() {
 
           {/* PERFIL + NOTIFICACIONES */}
           <div className="flex items-center gap-3 ml-auto">
-            
+
             {loading ? (
-               <div className="w-8 h-8 bg-gray-200 rounded-full animate-pulse"></div>
+              <div className="w-8 h-8 bg-gray-200 rounded-full animate-pulse"></div>
             ) : (
               <>
                 <button
@@ -148,7 +149,7 @@ export default function Header() {
                     <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 text-white flex items-center justify-center font-bold text-sm shadow-inner uppercase">
                       {firstLetter}
                     </div>
-                    
+
                     <div className="hidden sm:flex flex-col items-start pr-2">
                       <span className="text-xs font-bold text-gray-700 leading-tight max-w-[80px] truncate">
                         {fullName.split(' ')[0]}
@@ -163,7 +164,7 @@ export default function Header() {
                   {/* Dropdown */}
                   {profileOpen && (
                     <div className="absolute right-0 mt-3 w-64 bg-white/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/50 ring-1 ring-black/5 py-2 z-50 animate-in slide-in-from-top-2 fade-in duration-200 origin-top-right">
-                      
+
                       <div className="px-5 py-3 border-b border-gray-100">
                         <p className="text-sm font-bold text-gray-900 truncate">
                           {fullName}
@@ -180,7 +181,7 @@ export default function Header() {
                           </div>
                           Mi Perfil
                         </Link>
-                        
+
                         <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-gray-600 hover:text-emerald-700 hover:bg-emerald-50 rounded-xl transition-colors font-medium group">
                           <div className="p-1.5 bg-gray-100 group-hover:bg-emerald-100 rounded-lg transition-colors">
                             <Activity className="w-4 h-4" />
@@ -214,11 +215,11 @@ export default function Header() {
         {tabs.map((t) => {
           const isActive = pathname === t.href
           const Icon = t.icon
-          if (t.isEmergency) return null 
+          if (t.isEmergency) return null
 
           return (
-            <Link 
-              key={t.href} 
+            <Link
+              key={t.href}
               href={t.href}
               className={`relative flex flex-col items-center justify-center w-full py-1 transition-all duration-300 group`}
             >
@@ -228,8 +229,8 @@ export default function Header() {
             </Link>
           )
         })}
-        <Link 
-          href="/emergencia" 
+        <Link
+          href="/emergencia"
           className="absolute -top-5 left-1/2 -translate-x-1/2 w-14 h-14 bg-gradient-to-br from-rose-500 to-pink-600 rounded-full flex items-center justify-center shadow-lg border-4 border-gray-100 text-white hover:scale-105 active:scale-95 transition-transform"
         >
           <Zap className="w-6 h-6 fill-white" />
