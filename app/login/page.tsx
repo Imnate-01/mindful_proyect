@@ -198,7 +198,7 @@ export default function LoginPage() {
                     Inicia sesión 💚
                   </h2>
                   <p className="text-xs sm:text-sm text-gray-500 mt-1">
-                    Ingresa tus datos para acceder al panel de Mindful Campus.
+                    Ingresa tus datos para acceder al panel de iNerzia Mind.
                   </p>
                 </div>
                 <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full flex items-center justify-center animate-float">

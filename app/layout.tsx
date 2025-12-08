@@ -3,8 +3,11 @@ import Header from '@/components/Header'
 import { UserProvider } from '@/context/UserContext'
 
 export const metadata = {
-  title: 'Mindful Campus',
-  description: 'Plataforma de bienestar emocional y mindfulness'
+  title: 'iNerzia Mind | Tu Espacio de Calma',
+  description: 'Plataforma de bienestar emocional y mindfulness diseñada para acompañarte en tu vida universitaria.',
+  icons: {
+    icon: '/icons/heart-mind.svg',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -26,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main className="max-w-[1200px] mx-auto p-6">{children}</main>
         </UserProvider>
         <footer className="p-6 text-center text-sm text-gray-500">
-          © 2025 Mindful Campus — Proyecto académico
+          © 2025 iNerzia Mind — Proyecto académico
         </footer>
       </body>
     </html>
