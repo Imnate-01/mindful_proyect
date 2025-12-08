@@ -19,18 +19,18 @@ import {
   Meh,
 } from 'lucide-react'
 import { supabase } from '@/lib/supabaseClient'
-import { useRequireAuth } from '@/lib/useRequireAuth'
-
-
-interface Profile {
-  fullName: string
-  email: string
-}
+import { useUser } from '@/context/UserContext'
 
 export default function HomePage() {
   const router = useRouter()
-  const { user, loading } = useRequireAuth()
+  const { user, profile, loading } = useUser()
   const [profileOpen, setProfileOpen] = useState(false)
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.replace('/login')
+    }
+  }, [user, loading, router])
 
   if (loading) {
     return (
@@ -40,24 +40,20 @@ export default function HomePage() {
     )
   }
 
-  const profile: Profile = {
-    fullName: (user?.user_metadata as any)?.full_name || 'Estudiante',
-    email: user?.email || '',
+  const displayName = profile?.nombre_completo || user?.user_metadata?.full_name || 'Estudiante'
+
+  async function handleLogout() {
+    await supabase.auth.signOut()
+    router.replace('/login')
   }
-const firstLetter = profile?.fullName?.charAt(0)?.toUpperCase() || 'U'
 
-async function handleLogout() {
-  await supabase.auth.signOut()
-  router.replace('/login')
-}
-
-if (loading) {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50">
-      <p className="text-sm text-gray-600">Cargando tu espacio seguro…</p>
-    </div>
-  )
-}
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50">
+        <p className="text-sm text-gray-600">Cargando tu espacio seguro…</p>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 overflow-x-hidden">
@@ -84,7 +80,7 @@ if (loading) {
         <div className="absolute -bottom-8 left-1/2 w-72 md:w-96 h-72 md:h-96 bg-cyan-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob" style={{ animationDelay: '4s' }}></div>
       </div>
 
-      
+
       {/* CONTENIDO */}
       <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-10 md:pt-8">
         <div className="grid lg:grid-cols-[2fr,1.2fr] gap-6 md:gap-8">
@@ -97,7 +93,7 @@ if (loading) {
                   <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-100 rounded-full">
                     <Sparkles className="w-4 h-4 text-emerald-600" />
                     <span className="text-xs font-medium text-emerald-700">
-                      Hola, {profile?.fullName || 'estudiante'} 👋
+                      Hola, {displayName} 👋
                     </span>
                   </div>
                   <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">

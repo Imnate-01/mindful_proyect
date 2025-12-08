@@ -27,7 +27,7 @@ export default function RegisterPage() {
   const [successMsg, setSuccessMsg] = useState<string | null>(null)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
-   async function handleGoogleLogin() {
+  async function handleGoogleLogin() {
     setErrorMsg(null)
 
     try {
@@ -79,6 +79,7 @@ export default function RegisterPage() {
           data: {
             full_name: fullName,
           },
+          emailRedirectTo: `${window.location.origin}/login`,
         },
       })
 
@@ -138,9 +139,9 @@ export default function RegisterPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <Link href="/landing" className="flex items-center gap-3">
             <div className="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full flex items-center justify-center shadow-lg">
-                <Heart className="w-5 h-5 md:w-6 md:h-6 text-white" />
+              <Heart className="w-5 h-5 md:w-6 md:h-6 text-white" />
             </div>
-                <span className="font-bold text-lg md:text-xl bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+            <span className="font-bold text-lg md:text-xl bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
               iNerzia Mind
             </span>
           </Link>
@@ -252,122 +253,122 @@ export default function RegisterPage() {
               )}
 
               {/* Botón Google arriba */}
-<button
-  type="button"
-  onClick={handleGoogleLogin}
-  className="w-full mb-4 py-3 bg-white text-gray-800 rounded-xl border border-gray-200 font-semibold text-sm sm:text-base flex items-center justify-center gap-2 hover:shadow-md hover:scale-[1.01] transition-all disabled:opacity-70"
-  disabled={loading}
->
-  <img
-    src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
-    alt="Google"
-    className="w-5 h-5"
-  />
-  <span>Crear cuenta con Google</span>
-</button>
+              <button
+                type="button"
+                onClick={handleGoogleLogin}
+                className="w-full mb-4 py-3 bg-white text-gray-800 rounded-xl border border-gray-200 font-semibold text-sm sm:text-base flex items-center justify-center gap-2 hover:shadow-md hover:scale-[1.01] transition-all disabled:opacity-70"
+                disabled={loading}
+              >
+                <img
+                  src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                  alt="Google"
+                  className="w-5 h-5"
+                />
+                <span>Crear cuenta con Google</span>
+              </button>
 
-<div className="flex items-center gap-3 my-3">
-  <div className="flex-1 h-px bg-gray-200" />
-  <span className="text-[11px] sm:text-xs text-gray-500">
-    o con tu correo
-  </span>
-  <div className="flex-1 h-px bg-gray-200" />
-</div>
+              <div className="flex items-center gap-3 my-3">
+                <div className="flex-1 h-px bg-gray-200" />
+                <span className="text-[11px] sm:text-xs text-gray-500">
+                  o con tu correo
+                </span>
+                <div className="flex-1 h-px bg-gray-200" />
+              </div>
 
-<form onSubmit={handleSubmit} className="space-y-4">
-  {/* Nombre */}
-  <div>
-    <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
-      Nombre (opcional)
-    </label>
-    <div className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-3">
-      <User className="w-4 h-4 text-gray-400" />
-      <input
-        type="text"
-        className="flex-1 py-2 text-sm focus:outline-none bg-transparent"
-        placeholder="Cómo quieres que te llamemos"
-        value={fullName}
-        onChange={(e) => setFullName(e.target.value)}
-      />
-    </div>
-  </div>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                {/* Nombre */}
+                <div>
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+                    Nombre (opcional)
+                  </label>
+                  <div className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-3">
+                    <User className="w-4 h-4 text-gray-400" />
+                    <input
+                      type="text"
+                      className="flex-1 py-2 text-sm focus:outline-none bg-transparent"
+                      placeholder="Cómo quieres que te llamemos"
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                    />
+                  </div>
+                </div>
 
-  {/* Email */}
-  <div>
-    <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
-      Correo electrónico
-    </label>
-    <div className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-3">
-      <Mail className="w-4 h-4 text-gray-400" />
-      <input
-        type="email"
-        className="flex-1 py-2 text-sm focus:outline-none bg-transparent"
-        placeholder="tucorreo@ejemplo.com"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        autoComplete="email"
-      />
-    </div>
-  </div>
+                {/* Email */}
+                <div>
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+                    Correo electrónico
+                  </label>
+                  <div className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-3">
+                    <Mail className="w-4 h-4 text-gray-400" />
+                    <input
+                      type="email"
+                      className="flex-1 py-2 text-sm focus:outline-none bg-transparent"
+                      placeholder="tucorreo@ejemplo.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      autoComplete="email"
+                    />
+                  </div>
+                </div>
 
-  {/* Password */}
-  <div>
-    <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
-      Contraseña
-    </label>
-    <div className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-3">
-      <Lock className="w-4 h-4 text-gray-400" />
-      <input
-        type={showPassword ? 'text' : 'password'}
-        className="flex-1 py-2 text-sm focus:outline-none bg-transparent"
-        placeholder="Mínimo 6 caracteres"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        autoComplete="new-password"
-      />
-      <button
-        type="button"
-        onClick={() => setShowPassword((v) => !v)}
-        className="text-[11px] sm:text-xs text-emerald-600 font-medium hover:text-emerald-700"
-      >
-        {showPassword ? 'Ocultar' : 'Ver'}
-      </button>
-    </div>
-  </div>
+                {/* Password */}
+                <div>
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+                    Contraseña
+                  </label>
+                  <div className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-3">
+                    <Lock className="w-4 h-4 text-gray-400" />
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      className="flex-1 py-2 text-sm focus:outline-none bg-transparent"
+                      placeholder="Mínimo 6 caracteres"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      autoComplete="new-password"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword((v) => !v)}
+                      className="text-[11px] sm:text-xs text-emerald-600 font-medium hover:text-emerald-700"
+                    >
+                      {showPassword ? 'Ocultar' : 'Ver'}
+                    </button>
+                  </div>
+                </div>
 
-  {/* Confirmar contraseña */}
-  <div>
-    <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
-      Confirmar contraseña
-    </label>
-    <div className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-3">
-      <Lock className="w-4 h-4 text-gray-400" />
-      <input
-        type={showPassword ? 'text' : 'password'}
-        className="flex-1 py-2 text-sm focus:outline-none bg-transparent"
-        placeholder="Repite tu contraseña"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-      />
-    </div>
-  </div>
+                {/* Confirmar contraseña */}
+                <div>
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+                    Confirmar contraseña
+                  </label>
+                  <div className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-3">
+                    <Lock className="w-4 h-4 text-gray-400" />
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      className="flex-1 py-2 text-sm focus:outline-none bg-transparent"
+                      placeholder="Repite tu contraseña"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
+                  </div>
+                </div>
 
-  {/* CTA */}
-  <button
-    type="submit"
-    disabled={loading}
-    className="w-full py-3 sm:py-3.5 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl font-semibold text-sm sm:text-base flex items-center justify-center gap-2 hover:shadow-lg hover:scale-[1.01] transition-all disabled:opacity-70 disabled:hover:scale-100"
-  >
-    {loading ? (
-      'Creando cuenta…'
-    ) : (
-      <>
-        Crear mi cuenta
-        <ArrowRight className="w-4 h-4" />
-      </>
-    )}
-  </button>
-</form>
+                {/* CTA */}
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full py-3 sm:py-3.5 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl font-semibold text-sm sm:text-base flex items-center justify-center gap-2 hover:shadow-lg hover:scale-[1.01] transition-all disabled:opacity-70 disabled:hover:scale-100"
+                >
+                  {loading ? (
+                    'Creando cuenta…'
+                  ) : (
+                    <>
+                      Crear mi cuenta
+                      <ArrowRight className="w-4 h-4" />
+                    </>
+                  )}
+                </button>
+              </form>
 
 
               <p className="mt-4 text-[11px] sm:text-xs text-center text-gray-500">

@@ -1,5 +1,6 @@
 import '../styles/globals.css'
 import Header from '@/components/Header'
+import { UserProvider } from '@/context/UserContext'
 
 export const metadata = {
   title: 'Mindful Campus',
@@ -20,8 +21,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
 
       <body className="min-h-screen font-poppins bg-gradient-to-br from-[#e8f3ed] to-[#d9eee9] text-gray-800">
-        <Header />
-        <main className="max-w-[1200px] mx-auto p-6">{children}</main>
+        <UserProvider>
+          <Header />
+          <main className="max-w-[1200px] mx-auto p-6">{children}</main>
+        </UserProvider>
         <footer className="p-6 text-center text-sm text-gray-500">
           © 2025 Mindful Campus — Proyecto académico
         </footer>

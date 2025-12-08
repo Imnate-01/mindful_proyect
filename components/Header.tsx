@@ -3,11 +3,12 @@
 import { useState, useRef, useEffect, useMemo } from 'react'
 import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
-import { createClient } from '@supabase/supabase-js'
+import { supabase } from '@/lib/supabaseClient'
 import {
   Home, BookOpen, PlayCircle, Book, Zap, Bell,
   User, Activity, LogOut, ChevronDown, Heart, ClipboardCheck
 } from 'lucide-react'
+import { useUser } from '@/context/UserContext'
 
 // --- Configuración de Navegación ---
 const tabs = [
@@ -25,28 +26,7 @@ export default function Header() {
   const [profileOpen, setProfileOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
-  // Estado para el usuario
-  const [user, setUser] = useState<any>(null)
-  const [loading, setLoading] = useState(true)
-
-  // Instancia de Supabase
-  // Instancia de Supabase
-  const supabase = useMemo(() => {
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL as string
-    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
-    return createClient(url, key)
-  }, [])
-  // 1. Cargar usuario al iniciar
-  useEffect(() => {
-    const getUser = async () => {
-      const { data: { session } } = await supabase.auth.getSession()
-      if (session?.user) {
-        setUser(session.user)
-      }
-      setLoading(false)
-    }
-    getUser()
-  }, [supabase])
+  const { user, profile, avatarUrl, loading } = useUser()
 
   // 2. Cerrar sesión
   const handleLogout = async () => {
@@ -75,7 +55,7 @@ export default function Header() {
   if (rutasOcultas.includes(pathname)) return null
 
   // Datos para mostrar (Fallback si no hay datos)
-  const fullName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || "Usuario"
+  const fullName = profile?.nombre_completo || user?.user_metadata?.full_name || "Usuario"
   const email = user?.email || ""
   const firstLetter = fullName[0]?.toUpperCase() || "U"
 
@@ -146,8 +126,13 @@ export default function Header() {
                     onClick={() => setProfileOpen((v) => !v)}
                     className={`flex items-center gap-2 bg-white rounded-full border px-2 py-1 pl-1 shadow-sm transition-all hover:shadow-md ${profileOpen ? 'border-emerald-500 ring-2 ring-emerald-100' : 'border-gray-100 hover:border-emerald-200'}`}
                   >
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 text-white flex items-center justify-center font-bold text-sm shadow-inner uppercase">
-                      {firstLetter}
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 text-white flex items-center justify-center font-bold text-sm shadow-inner uppercase overflow-hidden">
+                      {avatarUrl ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
+                      ) : (
+                        firstLetter
+                      )}
                     </div>
 
                     <div className="hidden sm:flex flex-col items-start pr-2">
