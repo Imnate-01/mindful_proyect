@@ -24,7 +24,7 @@ export default function GardenCanvas({ placedItems, onGridClick, stage, selected
             <Canvas shadows camera={{ position: [10, 8, 10], fov: 45 }}>
                 {/* Atmosphere */}
                 <color attach="background" args={[isWinter ? '#cce0ff' : '#e0f2fe']} />
-                {isWinter ? <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} /> : <Cloud opacity={0.5} speed={0.4} width={10} depth={1.5} segments={20} />}
+                {isWinter ? <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} /> : <Cloud opacity={0.5} speed={0.4} segments={20} />}
 
                 {/* Lighting */}
                 <ambientLight intensity={0.5} />
