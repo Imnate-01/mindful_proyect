@@ -6,13 +6,14 @@ import { useRouter, usePathname } from 'next/navigation'
 import { supabase } from '@/lib/supabaseClient'
 import {
   Home, BookOpen, PlayCircle, Book, Zap, Bell,
-  User, Activity, LogOut, ChevronDown, Heart, ClipboardCheck
+  User, Activity, LogOut, ChevronDown, Heart, ClipboardCheck, Leaf
 } from 'lucide-react'
 import { useUser } from '@/context/UserContext'
 
 // --- Configuración de Navegación ---
 const tabs = [
   { href: '/home', label: 'Inicio', icon: Home },
+  { href: '/mi-jardin', label: 'Mi Jardín', icon: Leaf },
   { href: '/journal', label: 'Diario', icon: Book },
   { href: '/recursos', label: 'Recursos', icon: BookOpen },
   { href: '/sesiones', label: 'Meditaciones', icon: PlayCircle },
@@ -95,7 +96,7 @@ export default function Header() {
                     ${t.isEmergency && !isActive ? 'text-rose-500 hover:text-rose-600 hover:bg-rose-50' : ''}
                   `}
                 >
-                  <Icon className={`w-4 h-4 ${isActive ? 'stroke-[2.5px]' : ''}`} />
+                  {Icon && <Icon className={`w-4 h-4 ${isActive ? 'stroke-[2.5px]' : ''}`} />}
                   <span>{t.label}</span>
                   {isActive && (
                     <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-emerald-500 rounded-full"></span>
@@ -209,7 +210,7 @@ export default function Header() {
               className={`relative flex flex-col items-center justify-center w-full py-1 transition-all duration-300 group`}
             >
               <div className={`p-2 rounded-xl transition-all duration-300 ${isActive ? 'bg-emerald-100 text-emerald-600 -translate-y-2 shadow-sm' : 'text-gray-400 group-hover:text-gray-600'}`}>
-                <Icon className="w-6 h-6" strokeWidth={isActive ? 2.5 : 2} />
+                {Icon && <Icon className="w-6 h-6" strokeWidth={isActive ? 2.5 : 2} />}
               </div>
             </Link>
           )

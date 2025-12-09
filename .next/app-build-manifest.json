@@ -21,20 +21,25 @@
       "static/chunks/main-app.js",
       "static/chunks/app/home/page.js"
     ],
+    "/sesiones/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/sesiones/page.js"
+    ],
+    "/mi-jardin/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/mi-jardin/page.js"
+    ],
     "/journal/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/journal/page.js"
     ],
-    "/emergencia/page": [
+    "/recursos/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/emergencia/page.js"
-    ],
-    "/_not-found/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/chunks/app/recursos/page.js"
     ]
   }
 }
