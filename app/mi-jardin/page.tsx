@@ -8,7 +8,6 @@ import { PlantType, GardenTile, GardenStage } from '@/types/garden';
 import Garden3D from "@/components/Garden3D";
 import {
   Sparkles,
-  Coin,
   Leaf,
   Coins,
   Flame,
@@ -272,8 +271,8 @@ export default function GardenPage() {
             <button
               onClick={() => setSelectedGarden("sakura")}
               className={`px-4 py-2 rounded-full text-xs font-medium transition-colors ${selectedGarden === "sakura"
-                  ? "bg-emerald-600 text-white shadow-md"
-                  : "bg-white/60 text-slate-700 hover:bg-white border border-white/50"
+                ? "bg-emerald-600 text-white shadow-md"
+                : "bg-white/60 text-slate-700 hover:bg-white border border-white/50"
                 }`}
             >
               🌸 Jardín Sakura
@@ -281,8 +280,8 @@ export default function GardenPage() {
             <button
               onClick={() => setSelectedGarden("bosque")}
               className={`px-4 py-2 rounded-full text-xs font-medium transition-colors ${selectedGarden === "bosque"
-                  ? "bg-emerald-600 text-white shadow-md"
-                  : "bg-white/60 text-slate-700 hover:bg-white border border-white/50"
+                ? "bg-emerald-600 text-white shadow-md"
+                : "bg-white/60 text-slate-700 hover:bg-white border border-white/50"
                 }`}
             >
               🌲 Bosque Esmeralda
