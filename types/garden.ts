@@ -35,3 +35,10 @@ export interface GardenState {
     // Legacy helper for hook internals if needed, or remove
     stage?: GardenStage;
 }
+
+export interface PlantInstance {
+    id: string;
+    x: number;
+    y: number;
+    plant_type: PlantType;
+}
