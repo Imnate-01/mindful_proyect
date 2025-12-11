@@ -14,6 +14,7 @@ import {
   Frown,
   Meh,
   ArrowRight,
+  BadgeCheck,
 } from 'lucide-react'
 import { useUser } from '@/context/UserContext'
 import { useAcademicProfile } from '@/hooks/useAcademicProfile'
@@ -297,6 +298,26 @@ export default function HomePage() {
                   Información importante si estás pasando por un momento difícil.
                 </p>
               </button>
+
+              <button
+                type="button"
+                onClick={() => router.push('/directorio-ayuda')}
+                className="bg-white/80 backdrop-blur-xl rounded-2xl border border-white/40 shadow-md p-4 text-left hover:-translate-y-1 hover:shadow-xl transition-all sm:col-span-2"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex flex-shrink-0 items-center justify-center">
+                    <BadgeCheck className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 text-sm mb-0.5">
+                      Directorio de Profesionales
+                    </h3>
+                    <p className="text-xs text-gray-600">
+                      Encuentra terapeutas certificados, clínicas y líneas de ayuda inmediata.
+                    </p>
+                  </div>
+                </div>
+              </button>
             </section>
 
           </div>
@@ -406,10 +427,36 @@ export default function HomePage() {
                 </button>
                 <button
                   type="button"
+                  onClick={() => router.push('/directorio-ayuda')}
+                  className="flex items-center justify-between px-3 py-2 rounded-xl bg-gray-50 hover:bg-sky-50 transition-colors"
+                >
+                  <div className="flex items-center gap-3">
+                    {/* Icono diferenciado, ej: escudo o libro */}
+                    <div className="bg-sky-100 p-1.5 rounded-lg">
+                      <BookOpen className="w-3.5 h-3.5 text-sky-600" />
+                    </div>
+                    <div className="text-left">
+                      <span className="block font-medium">Directorio de Profesionales</span>
+                      <span className="block text-[10px] text-gray-500 font-normal">Encuentra terapeutas verificados</span>
+                    </div>
+                  </div>
+                  <ArrowRight className="w-3 h-3 text-sky-500" />
+                </button>
+
+                <button
+                  type="button"
                   onClick={() => router.push('/emergencia')}
                   className="flex items-center justify-between px-3 py-2 rounded-xl bg-gray-50 hover:bg-rose-50 transition-colors"
                 >
-                  <span>Información en caso de emergencia</span>
+                  <div className="flex items-center gap-3">
+                    <div className="bg-rose-100 p-1.5 rounded-lg">
+                      <Heart className="w-3.5 h-3.5 text-rose-600" />
+                    </div>
+                    <div className="text-left">
+                      <span className="block font-medium">Apoyo en crisis</span>
+                      <span className="block text-[10px] text-gray-500 font-normal">Información de emergencia</span>
+                    </div>
+                  </div>
                   <ArrowRight className="w-3 h-3 text-rose-500" />
                 </button>
               </div>

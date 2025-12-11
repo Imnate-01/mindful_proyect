@@ -1,7 +1,7 @@
 {
+  "/mi-jardin/page": "app/mi-jardin/page.js",
+  "/journal/page": "app/journal/page.js",
   "/home/page": "app/home/page.js",
-  "/login/page": "app/login/page.js",
   "/recursos/page": "app/recursos/page.js",
-  "/sesiones/page": "app/sesiones/page.js",
-  "/mi-jardin/page": "app/mi-jardin/page.js"
+  "/directorio-ayuda/page": "app/directorio-ayuda/page.js"
 }
