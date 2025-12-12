@@ -28,6 +28,9 @@ export interface UserProfile {
     current_stage: GardenStage;
 }
 
+// Alias para compatibilidad con componentes existentes
+export type UserProgress = UserProfile;
+
 export interface GardenState {
     profile: UserProfile;
     tiles: GardenTile[];
@@ -41,4 +44,5 @@ export interface PlantInstance {
     x: number;
     y: number;
     plant_type: PlantType;
+    is_placed?: boolean;
 }
