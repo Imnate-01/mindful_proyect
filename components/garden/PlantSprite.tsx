@@ -16,7 +16,7 @@ export default function PlantSprite({ type, className = "" }: PlantSpriteProps) 
 
     // Generate color based on ID to make them look distinct
     const colors = ['text-green-500', 'text-teal-500', 'text-emerald-500', 'text-lime-600', 'text-pink-400'];
-    const colorClass = colors[parseInt(type.id) % colors.length] || 'text-green-600';
+    const colorClass = colors[type.id % colors.length] || 'text-green-600';
 
     if (type.category === 'tree') {
         const isWinter = type.name.includes('Invernal') || type.name.includes('Pino');

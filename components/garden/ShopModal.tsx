@@ -32,7 +32,7 @@ export default function ShopModal({ isOpen, onClose, catalog, userTokens, userSt
                 {/* Grid */}
                 <div className="p-6 overflow-y-auto grid grid-cols-2 md:grid-cols-3 gap-4">
                     {catalog.map(plant => {
-                        const canAfford = userTokens >= plant.cost_tokens;
+                        const canAfford = userTokens >= plant.base_cost;
                         const unlocked = userStreak >= plant.min_streak_required;
                         const isLocked = !unlocked;
 
@@ -65,7 +65,7 @@ export default function ShopModal({ isOpen, onClose, catalog, userTokens, userSt
                                     </div>
                                 ) : (
                                     <button
-                                        onClick={() => onBuy(plant.id)}
+                                        onClick={() => onBuy(String(plant.id))}
                                         disabled={!canAfford}
                                         className={`
                                             w-full py-2 rounded-xl text-sm font-bold transition-all
@@ -75,7 +75,7 @@ export default function ShopModal({ isOpen, onClose, catalog, userTokens, userSt
                                             }
                                         `}
                                     >
-                                        {canAfford ? `${plant.cost_tokens} Tokens` : `Faltan ${plant.cost_tokens - userTokens}`}
+                                        {canAfford ? `${plant.base_cost} Tokens` : `Faltan ${plant.base_cost - userTokens}`}
                                     </button>
                                 )}
                             </div>
