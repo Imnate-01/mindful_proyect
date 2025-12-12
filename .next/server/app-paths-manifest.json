@@ -1,18 +1,6 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/api/ai/route": "app/api/ai/route.js",
-  "/api/booking/route": "app/api/booking/route.js",
   "/home/page": "app/home/page.js",
-  "/api/tts/route": "app/api/tts/route.js",
   "/directorio-ayuda/page": "app/directorio-ayuda/page.js",
-  "/journal/page": "app/journal/page.js",
-  "/login/page": "app/login/page.js",
-  "/emergencia/page": "app/emergencia/page.js",
-  "/page": "app/page.js",
-  "/recursos/page": "app/recursos/page.js",
-  "/sesiones/page": "app/sesiones/page.js",
-  "/perfil/page": "app/perfil/page.js",
-  "/register/page": "app/register/page.js",
-  "/mi-jardin/page": "app/mi-jardin/page.js",
-  "/pruebas/page": "app/pruebas/page.js"
+  "/emergencia/page": "app/emergencia/page.js"
 }
